@@ -6,8 +6,8 @@ const createStore = () => {
       news: []
     },
     mutations: {
-      setNews(state, stories) {
-        state.news = stories
+      setNews(state, news) {
+        state.news = news
       }
     },
     actions: {
@@ -18,7 +18,6 @@ const createStore = () => {
     },
     getters: {
       uniqueNews: (state) => {
-        console.log(state, 'getters') // eslint-disable-line
         const uniqueNews = []
         state.news.forEach((item) => {
           const i = uniqueNews.findIndex(news => news.lccn === item.lccn)

@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!--{{papers}}-->
-    <!--<pre>{{ papers }}</pre>-->
     <ul class="newspaper-container" @click="articleSelected">
       <li v-for="paper in papers" :id="paper.lccn" :key="paper.lccn" class="newspaper">
         <span :id="paper.lccn" class="title">{{ paper.title }}</span>
@@ -40,8 +38,6 @@ export default {
   },
   methods: {
     articleSelected(e) {
-      console.log(e, 'event') // eslint-disable-line
-      console.log(e.target.id) //eslint-disable-line
       const id = e.target.id
       this.$router.push(`newspapers/${id}`)
     }
