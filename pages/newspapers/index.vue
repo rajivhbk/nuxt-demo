@@ -1,10 +1,11 @@
 <template>
   <div>
     <ul class="newspaper-container" @click="articleSelected">
-      <li v-for="paper in papers" :id="paper.lccn" :key="paper.lccn" class="newspaper">
+      <li v-for="paper in activePageData" :id="paper.lccn" :key="paper.lccn" class="newspaper">
         <span :id="paper.lccn" class="title">{{ paper.title }}</span>
       </li>
     </ul>
+    <b-pagination size="md" :total-rows="papers.length" v-model="currentPage" :per-page="batchSize" />
   </div>
 </template>
 
@@ -33,7 +34,23 @@
 export default {
   computed: {
     papers() {
-      return this.$store.getters.uniqueNews
+      return this.$store.getters['newspapers/uniqueNews']
+    },
+    // noOfPages() {
+    //   return this.papers.length / this.batchSize
+    // },
+    pageOffset() {
+      return (this.currentPage - 1) * this.batchSize
+    },
+    activePageData() {
+      const data = this.papers.slice(this.pageOffset, this.pageOffset + this.batchSize)
+      return data
+    }
+  },
+  data() {
+    return {
+      currentPage: 1,
+      batchSize: 10
     }
   },
   methods: {
